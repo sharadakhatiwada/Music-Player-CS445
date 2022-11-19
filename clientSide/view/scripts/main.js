@@ -273,10 +273,13 @@ function playPrevious() {
       previousSongId = +currentSongId - 1;
     }
   } else if (sessionStorage.getItem("playType") === "SHUFFLE") {
-    currentSongId = Math.random(0, playListSongs.length - 1);
-    previousSongId = currentSongId;
+    previousSongId = getRandomInt(0, playListSongs.length - 1);
   } else if (sessionStorage.getItem("playType") === "REPEAT") {
-    previousSongId = currentSongId;
+    if (currentSongId == 0) {
+      previousSongId = playListSongs.length - 1;
+    } else {
+      previousSongId = +currentSongId - 1;
+    }
   }
   let nextSong = playListSongs[previousSongId];
   playSong(nextSong.title, nextSong.urlPath, previousSongId);
